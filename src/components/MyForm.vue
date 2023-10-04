@@ -8,7 +8,7 @@
       </div>
       <div class="form-group">
         <h3>Assign</h3>
-        <input id="task-user" type="number" min="1" max="50" v-model="task.userId">
+        <input id="task-user" type="number" min="1" max="99" v-model="task.userId">
       </div>
       <div class="btn-group">
         <MyBytton class="submit" @click="this.$emit('submit',task);">Submit</MyBytton>
@@ -46,8 +46,13 @@ export default {
       margin-bottom: 10px;
     }
     textarea {
-      width: 100%;
+      width: calc(100% - 20px);
+    }
+    textarea, input[type="number"] {
       font-size: 18px;
+      padding: 10px;
+      border: 1px solid lightgrey;
+      border-radius: 6px;
     }
   }
   .btn-group {

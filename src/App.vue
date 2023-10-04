@@ -11,6 +11,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
+* {
+  font-family: Lato, sans-serif;
+}
 </style>
