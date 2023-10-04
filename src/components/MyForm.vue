@@ -10,11 +10,13 @@
         <h3>Assign</h3>
         <input id="task-user" type="number" min="1" max="99" v-model="task.userId">
       </div>
+      <div v-if="errors.length">
+        <div class="errors" v-for="error in errors">{{ error }}</div>
+      </div>
       <div class="btn-group">
         <MyBytton class="submit" @click="this.$emit('submit',task);">Submit</MyBytton>
       </div>
     </form>
-
   </div>
 </template>
 
@@ -27,7 +29,8 @@ export default {
     task: {
       type: Object,
       required: true,
-    }
+    },
+    errors: Array,
   },
 }
 </script>
@@ -60,6 +63,9 @@ export default {
     .submit {
       margin: 0 auto;
     }
+  }
+  .errors {
+    color: orangered;
   }
 }
 

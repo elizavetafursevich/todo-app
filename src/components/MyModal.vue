@@ -13,11 +13,14 @@ export default {
   props: {
     show: {
       type: Boolean
-    }
+    },
+    errors: Array
   },
   methods: {
     hideModal() {
-      this.$emit('update:show', false);
+      if(!this.errors.length){
+        this.$emit('update:show', false);
+      }
     }
   },
 }

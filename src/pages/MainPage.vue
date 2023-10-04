@@ -5,8 +5,8 @@
       <MyBytton class="create" @click="showModal">Create</MyBytton>
     </div>
 
-    <MyModal v-model:show="openModal">
-      <MyForm :task="newTask" @submit="submitTask"></MyForm>
+    <MyModal v-model:show="openModal" :errors="errors">
+      <MyForm :task="newTask" :errors="errors" @submit="submitTask"></MyForm>
     </MyModal>
 
     <TaskItem
@@ -60,6 +60,7 @@ export default {
       task.completed = !task.completed;
     },
     submitTask() {
+      this.validation();
       if (!this.tasks.find(item => item.id === this.newTask.id)) {
         this.newTask.id = this.tasks.at(-1).id + 1;
         this.tasks.push(this.newTask);
@@ -73,11 +74,32 @@ export default {
       this.openModal = false;
     },
     editTask(task){
+      this.errors = [];
       this.newTask = this.tasks.find(item => item.id === task.id);
       this.openModal = true;
     },
     showModal() {
+      this.newTask = {
+        id: '',
+        todo: '',
+        completed: false,
+        userId: ''
+      }
+      this.errors = [];
       this.openModal = true;
+    },
+    validation(e){
+      this.errors = [];
+      if (this.newTask.todo && this.newTask.userId) {
+        return true;
+      }
+      if (!this.newTask.todo) {
+        this.errors.push('Todo.');
+      }
+      if (!this.newTask.userId) {
+        this.errors.push('UserId.');
+      }
+      e.preventDefault();
     }
   },
   created() {
