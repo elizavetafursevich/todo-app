@@ -91,13 +91,17 @@ export default {
     validation(e){
       this.errors = [];
       if (this.newTask.todo && this.newTask.userId) {
-        return true;
+        if(this.newTask.userId > 99 || this.newTask.userId < 1){
+          this.errors.push('User ID is invalid.');
+        }else{
+          return true;
+        }
       }
       if (!this.newTask.todo) {
-        this.errors.push('Todo.');
+        this.errors.push('Task is required.');
       }
       if (!this.newTask.userId) {
-        this.errors.push('UserId.');
+        this.errors.push('User ID is required.');
       }
       e.preventDefault();
     }
