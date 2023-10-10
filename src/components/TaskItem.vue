@@ -1,5 +1,10 @@
 <template>
-  <div class="task" v-if="status">
+  <div class="title">
+    <h1>Tasks</h1>
+    <BaseButton class="create" @click="show = true">Create</BaseButton>
+  </div>
+  <TaskCreate :show="show" :task="newTask" @submit="submitTask"></TaskCreate>
+  <div class="task" v-for="task in tasks" :key="task.id">
     <div class="task-info">
       <div class="task-info__main">
         <div class="task-info__main-id">{{ task.id }}</div>
@@ -12,30 +17,69 @@
 
     </div>
     <div class="task__btns">
-      <MyBytton action="close" :status="task.completed" @click="$emit('close',task)">Close</MyBytton>
-      <MyBytton action="edit" @click="$emit('edit',task)">Edit</MyBytton>
-      <MyBytton action="delete" @click="$emit('remove',task)">Delete</MyBytton>
+      <BaseButton action="close" :status="task.completed" @click="closeTask(task)">Close</BaseButton>
+      <BaseButton action="edit" @click="editTask(task)">Edit</BaseButton>
+      <BaseButton action="delete" @click="removeTask(task)">Delete</BaseButton>
     </div>
   </div>
 </template>
 
 <script>
-import MyBytton from "./MyBytton.vue";
+import BaseButton from "./BaseButton.vue";
+import TaskCreate from "./TaskCreate.vue";
+import { setToDo } from "../../api/apiToDo.js";
 
 export default {
   name: "TaskItem",
-  components: {MyBytton},
-  props: {
-    task: {
-      type: Object,
-      required: true,
+  components: { BaseButton, TaskCreate },
+  data: () => ({
+    tasks: [],
+    show: false,
+    newTask: {
+      id: '',
+      todo: '',
+      completed: false,
+      userId: 13
+    }
+  }),
+  methods: {
+    removeTask(task) {
+      this.tasks = this.tasks.filter(item => item.id !== task.id);
     },
-    status: Boolean,
+    closeTask(task) {
+      task.completed = !task.completed;
+    },
+    submitTask() {
+      if (!this.tasks.find(item => item.id === this.newTask.id)) {
+        this.newTask.id = this.tasks.at(-1).id + 1;
+        this.tasks.push(this.newTask);
+      }
+      this.newTask = {
+        id: '',
+        todo: '',
+        completed: false,
+        userId: 13
+      }
+      this.show = false;
+    },
+    editTask(task){
+      this.newTask = this.tasks.find(item => item.id === task.id);
+      this.show = true;
+      window.scrollTo(0,0);
+    }
   },
+  created() {
+    this.tasks = setToDo;
+  }
 }
 </script>
 
 <style lang="scss">
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .task {
   padding: 15px;
   margin-top: 15px;

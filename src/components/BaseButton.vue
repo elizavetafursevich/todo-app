@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "MyBytton",
+  name: "BaseButton",
   props: {
     action: String,
     status: Boolean

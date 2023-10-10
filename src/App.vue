@@ -1,13 +1,13 @@
 <template>
-  <MyHeader></MyHeader>
-  <router-view />
+  <component :is="$route.meta.layout || 'div'">
+    <router-view />
+  </component>
 </template>
 
 <script>
-import MyHeader from "./components/MyHeader.vue";
 
 export default {
-  components: { MyHeader }
+  name: 'App',
 }
 </script>
 

@@ -1,37 +1,31 @@
 <template>
-  <div class="form">
+  <div class="form" v-if="show">
     <h2>Creating new task</h2>
-    <form @submit.prevent>
+    <form>
       <div class="form-group">
         <h3>Task</h3>
         <textarea id="task-todo" rows="5" v-model="task.todo"></textarea>
       </div>
-      <div class="form-group">
-        <h3>Assign</h3>
-        <input id="task-user" type="number" min="1" max="99" v-model="task.userId">
-      </div>
-      <div v-if="errors.length">
-        <div class="errors" v-for="error in errors">{{ error }}</div>
-      </div>
       <div class="btn-group">
-        <MyBytton class="submit" @click="this.$emit('submit',task);">Submit</MyBytton>
+        <BaseButton class="submit" @click="this.$emit('submit')">Submit</BaseButton>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-import MyBytton from "./MyBytton.vue";
+import BaseButton from "./BaseButton.vue";
+
 export default {
-  name: "MyForm",
-  components: {MyBytton},
+  name: "TaskCreate",
+  components: { BaseButton },
   props: {
     task: {
       type: Object,
       required: true,
     },
-    errors: Array,
-  },
+    show: Boolean
+  }
 }
 </script>
 
@@ -39,6 +33,8 @@ export default {
 .form {
   width: 500px;
   padding: 15px;
+  margin: 10px auto;
+  border: 2px solid black;
   h2 {
     text-align: center;
     margin-top: 0;
@@ -63,9 +59,6 @@ export default {
     .submit {
       margin: 0 auto;
     }
-  }
-  .errors {
-    color: orangered;
   }
 }
 
