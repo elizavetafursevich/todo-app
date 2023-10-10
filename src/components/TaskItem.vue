@@ -8,16 +8,32 @@
     <div class="task-info">
       <div class="task-info__main">
         <div class="task-info__main-id">{{ task.id }}</div>
-        <div class="task-info__main-todo" :class="task.completed ? 'completed' : 'todo'">{{ task.todo }}</div>
+        <div
+          class="task-info__main-todo"
+          :class="task.completed ? 'completed' : 'todo'"
+        >
+          {{ task.todo }}
+        </div>
       </div>
       <div>
-        <div class="task-info__status" :class="task.completed ? 'completed' : 'todo'">{{ task.completed ? 'completed' : 'to do'}}</div>
-        <div class="task-info__assign"><strong>user: </strong>{{ task.userId }}</div>
+        <div
+          class="task-info__status"
+          :class="task.completed ? 'completed' : 'todo'"
+        >
+          {{ task.completed ? "completed" : "to do" }}
+        </div>
+        <div class="task-info__assign">
+          <strong>user: </strong>{{ task.userId }}
+        </div>
       </div>
-
     </div>
     <div class="task__btns">
-      <BaseButton action="close" :status="task.completed" @click="closeTask(task)">Close</BaseButton>
+      <BaseButton
+        action="close"
+        :status="task.completed"
+        @click="closeTask(task)"
+        >Close</BaseButton
+      >
       <BaseButton action="edit" @click="editTask(task)">Edit</BaseButton>
       <BaseButton action="delete" @click="removeTask(task)">Delete</BaseButton>
     </div>
@@ -36,42 +52,42 @@ export default {
     tasks: [],
     show: false,
     newTask: {
-      id: '',
-      todo: '',
+      id: "",
+      todo: "",
       completed: false,
-      userId: 13
-    }
+      userId: 13,
+    },
   }),
   methods: {
     removeTask(task) {
-      this.tasks = this.tasks.filter(item => item.id !== task.id);
+      this.tasks = this.tasks.filter((item) => item.id !== task.id);
     },
     closeTask(task) {
       task.completed = !task.completed;
     },
     submitTask() {
-      if (!this.tasks.find(item => item.id === this.newTask.id)) {
+      if (!this.tasks.find((item) => item.id === this.newTask.id)) {
         this.newTask.id = this.tasks.at(-1).id + 1;
         this.tasks.push(this.newTask);
       }
       this.newTask = {
-        id: '',
-        todo: '',
+        id: "",
+        todo: "",
         completed: false,
-        userId: 13
-      }
+        userId: 13,
+      };
       this.show = false;
     },
-    editTask(task){
-      this.newTask = this.tasks.find(item => item.id === task.id);
+    editTask(task) {
+      this.newTask = this.tasks.find((item) => item.id === task.id);
       this.show = true;
-      window.scrollTo(0,0);
-    }
+      window.scrollTo(0, 0);
+    },
   },
   created() {
     this.tasks = setToDo;
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">
@@ -88,7 +104,7 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
-    .task-info__main{
+    .task-info__main {
       display: flex;
       align-items: center;
       .task-info__main-id {
@@ -116,10 +132,10 @@ export default {
       font-weight: 700;
       border: 1px solid black;
       //border-radius: 10%;
-      &.todo{
+      &.todo {
         background-color: lightgrey;
       }
-      &.completed{
+      &.completed {
         background-color: lawngreen;
       }
     }

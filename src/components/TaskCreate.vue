@@ -7,7 +7,9 @@
         <textarea id="task-todo" rows="5" v-model="task.todo"></textarea>
       </div>
       <div class="btn-group">
-        <BaseButton class="submit" @click="this.$emit('submit')">Submit</BaseButton>
+        <BaseButton class="submit" @click="this.$emit('submit')"
+          >Submit</BaseButton
+        >
       </div>
     </form>
   </div>
@@ -24,9 +26,9 @@ export default {
       type: Object,
       required: true,
     },
-    show: Boolean
-  }
-}
+    show: Boolean,
+  },
+};
 </script>
 
 <style lang="scss">
@@ -47,7 +49,8 @@ export default {
     textarea {
       width: calc(100% - 20px);
     }
-    textarea, input[type="number"] {
+    textarea,
+    input[type="number"] {
       font-size: 18px;
       padding: 10px;
       border: 1px solid lightgrey;
@@ -61,5 +64,4 @@ export default {
     }
   }
 }
-
 </style>

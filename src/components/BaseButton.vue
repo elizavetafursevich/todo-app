@@ -9,9 +9,9 @@ export default {
   name: "BaseButton",
   props: {
     action: String,
-    status: Boolean
-  }
-}
+    status: Boolean,
+  },
+};
 </script>
 
 <style lang="scss">
@@ -23,7 +23,8 @@ export default {
   border: 2px solid black;
   border-radius: 10%;
   font-weight: 700;
-  &.create,  &.submit {
+  &.create,
+  &.submit {
     background-color: lightgrey;
   }
   &.edit {

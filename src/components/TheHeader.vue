@@ -9,12 +9,12 @@
 
 <script>
 export default {
-  name: "TheHeader"
-}
+  name: "TheHeader",
+};
 </script>
 
 <style lang="scss">
-.nav{
+.nav {
   text-align: center;
   .nav-link {
     padding: 20px;

@@ -1,18 +1,18 @@
 <template>
-<div class="about">
-  <h1>This is a simple TODO application!</h1>
-</div>
+  <div class="about">
+    <h1>This is a simple TODO application!</h1>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "AboutPage"
-}
+  name: "AboutPage",
+};
 </script>
 
 <style lang="scss">
-.about{
-  h1{
+.about {
+  h1 {
     text-align: center;
   }
 }
