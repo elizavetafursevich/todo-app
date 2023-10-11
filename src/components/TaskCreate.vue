@@ -8,8 +8,8 @@
       </div>
       <div class="btn-group">
         <BaseButton class="submit" @click="this.$emit('submit')"
-          >Submit</BaseButton
-        >
+          >Submit
+        </BaseButton>
       </div>
     </form>
   </div>
