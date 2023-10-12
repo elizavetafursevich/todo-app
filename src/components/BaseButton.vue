@@ -1,17 +1,14 @@
 <template>
-  <button class="btn" :class="action" :disabled="status">
+  <button class="btn" :class="props.action" :disabled="props.status">
     <slot></slot>
   </button>
 </template>
 
-<script>
-export default {
-  name: "BaseButton",
-  props: {
-    action: String,
-    status: Boolean,
-  },
-};
+<script setup>
+const props = defineProps({
+  action: String,
+  status: Boolean,
+});
 </script>
 
 <style lang="scss" scoped>

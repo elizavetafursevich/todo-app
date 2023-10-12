@@ -40,53 +40,44 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import BaseButton from "./BaseButton.vue";
 import TaskCreate from "./TaskCreate.vue";
+import { ref } from "vue";
 import { setToDo } from "../../api/apiToDo.js";
 
-export default {
-  name: "TaskItem",
-  components: { BaseButton, TaskCreate },
-  data: () => ({
-    tasks: [],
-    show: false,
-    newTask: {
-      id: "",
-      todo: "",
-      completed: false,
-      userId: 13,
-    },
-  }),
-  methods: {
-    removeTask(task) {
-      this.tasks = this.tasks.filter((item) => item.id !== task.id);
-    },
-    closeTask(task) {
-      task.completed = !task.completed;
-    },
-    submitTask() {
-      if (!this.tasks.find((item) => item.id === this.newTask.id)) {
-        this.newTask.id = this.tasks.at(-1).id + 1;
-        this.tasks.push(this.newTask);
-      }
-      this.newTask = {
-        id: "",
-        todo: "",
-        completed: false,
-        userId: 13,
-      };
-      this.show = false;
-    },
-    editTask(task) {
-      this.newTask = this.tasks.find((item) => item.id === task.id);
-      this.show = true;
-      window.scrollTo(0, 0);
-    },
-  },
-  created() {
-    this.tasks = setToDo;
-  },
+const tasks = ref(setToDo);
+const show = ref(false);
+const newTask = ref({
+  id: "",
+  todo: "",
+  completed: false,
+  userId: 13,
+});
+
+const removeTask = (task) => {
+  tasks.value = tasks.value.filter((item) => item.id !== task.id);
+};
+const closeTask = (task) => {
+  task.completed = !task.completed;
+};
+const submitTask = () => {
+  if (!tasks.value.find((item) => item.id === newTask.value.id)) {
+    newTask.value.id = tasks.value.at(-1).id + 1;
+    tasks.value.push(newTask.value);
+  }
+  newTask.value = {
+    id: "",
+    todo: "",
+    completed: false,
+    userId: 13,
+  };
+  show.value = false;
+};
+const editTask = (task) => {
+  newTask.value = tasks.value.find((item) => item.id === task.id);
+  show.value = true;
+  window.scrollTo(0, 0);
 };
 </script>
 

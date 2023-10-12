@@ -1,10 +1,10 @@
 <template>
-  <div class="form" v-if="show">
+  <div class="form" v-if="props.show">
     <h2>Creating new task</h2>
     <form>
       <div class="form-group">
         <h3>Task</h3>
-        <textarea id="task-todo" rows="5" v-model="task.todo"></textarea>
+        <textarea id="task-todo" rows="5" v-model="props.task.todo"></textarea>
       </div>
       <div class="btn-group">
         <BaseButton class="submit" @click="this.$emit('submit')"
@@ -15,20 +15,16 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import BaseButton from "./BaseButton.vue";
 
-export default {
-  name: "TaskCreate",
-  components: { BaseButton },
-  props: {
-    task: {
-      type: Object,
-      required: true,
-    },
-    show: Boolean,
+const props = defineProps({
+  task: {
+    type: Object,
+    required: true,
   },
-};
+  show: Boolean,
+});
 </script>
 
 <style lang="scss" scoped>
